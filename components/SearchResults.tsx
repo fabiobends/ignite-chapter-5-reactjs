@@ -3,9 +3,10 @@ import { ProductItem } from "./ProductItem";
 
 type SearchResultsProps = {
   results: Array<{ id: number; price: number; title: string }>;
+  addToWishList: (id: number) => void;
 };
 
-export function SearchResults({ results }: SearchResultsProps) {
+export function SearchResults({ results, addToWishList }: SearchResultsProps) {
   const totalPrice = useMemo(() => {
     return results.reduce((total, result) => {
       return total + result.price;
@@ -18,7 +19,11 @@ export function SearchResults({ results }: SearchResultsProps) {
         <Component totalPrice={totalPrice} />
         */}
       {results.map((result) => (
-        <ProductItem key={result.id} product={result} />
+        <ProductItem
+          key={result.id}
+          product={result}
+          addToWishList={addToWishList}
+        />
       ))}
     </div>
   );
